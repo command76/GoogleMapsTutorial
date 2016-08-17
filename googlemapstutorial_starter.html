@@ -1,0 +1,59 @@
+<!-- Google Maps API Tutorial -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Google Maps Tutorial</title>
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<style>
+		html,body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		
+		.container {
+			height: 100%;
+		}
+
+		.form {
+			height: 30px;
+			background: black;
+		}
+
+		.map-view {
+			height: 100%;
+		}
+
+		#map {
+			height: 100%;
+			background: white;
+		}
+
+		#map-directions {
+			height: 100%;
+			background: lightblue;
+			overflow-y: scroll;
+		}
+	</style>
+
+</head>
+<body>
+
+<div class="container">
+	<div class="row text-center form">
+		<input id="search" type="text">
+		<button id="submit">Submit</button>
+	</div>
+	<div class="row map-view">
+		<div id="map" class="col-xs-6"></div>
+		<div id="map-directions" class="col-xs-6"></div>
+	</div>
+</div>
+
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+</body>
+</html>

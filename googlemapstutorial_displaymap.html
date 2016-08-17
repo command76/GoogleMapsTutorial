@@ -1,0 +1,94 @@
+<!-- Google Maps API Tutorial -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Google Maps Tutorial</title>
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<style>
+		html,body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			height: 100%;
+		}
+
+		.form {
+			height: 30px;
+			background: black;
+		}
+
+		.map-view {
+			height: 100%;
+		}
+
+		#map {
+			height: 100%;
+			background: white;
+		}
+
+		#map-directions {
+			height: 100%;
+			background: lightblue;
+			overflow-y: scroll;
+		}
+	</style>
+
+</head>
+<body>
+
+<div class="container">
+	<div class="row text-center form">
+		<input id="search" type="text">
+		<button id="submit">Submit</button>
+	</div>
+	<div class="row map-view">
+		<div id="map" class="col-xs-6"></div>
+		<div id="map-directions" class="col-xs-6"></div>
+	</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script>
+	function initMap() {
+	    	mapDiv = document.getElementById('map');
+	    	map = new google.maps.Map(mapDiv, {
+	    		//set center of map on load
+			center: {lat: 44.540, lng: -78.546},
+			//set zoom, lower number means zoom out, and vice versa
+			zoom: 7,
+			//you can set map type to roadmap, terrain, satellite, or hybrid
+			mapTypeId: 'terrain',
+			//If you plan to move a control on the screen
+			//it is recommened to set that control to true to always show
+			mapTypeControl: true,
+			//this sets the position, go to docs to see other positions
+			mapTypeControlOptions: {
+			position: google.maps.ControlPosition.TOP_LEFT
+			},
+			//same as before, just different controls
+			fullscreenControl: true,
+			fullscreenControlOptions: {
+			position: google.maps.ControlPosition.LEFT_TOP
+			},
+			streetViewControl: true,
+			streetViewControlOptions: {
+			position: google.maps.ControlPosition.LEFT_TOP 
+			},
+			zoomControl: true,
+			zoomControlOptions: {
+			position: google.maps.ControlPosition.LEFT_TOP
+			}
+		});
+	}
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" type="text/javascript"></script>
+
+</body>
+</html

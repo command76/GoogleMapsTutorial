@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>This is the real tutorial.</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+	<style>
+		body {
+			background: black;
+			color: white;
+		}
+		.gist tbody {
+			/*background: black;*/
+		}
+		hi {
+			background: yellow;
+			border: solid 1px red;
+		}
+		.header {
+			margin-bottom: 10px;
+		}
+		.footer {
+			margin-bottom: 10px;
+			padding: 20px;
+			width: 100%;
+			background: lightblue;
+		}
+
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="row header">
+		<h1>GOOGLE MAPS TUTORIAL</h1>
+		<a href="index.html">Display A Map</a> ||
+		<a href="tutorial2.html">Search Input Autocomplete and Geocoder</a> || 
+		<a href="tutorial3.html">Placing Markers</a> || 
+		<a href="tutorial4.html">Directions</a>
+	</div>
+
+	<div class="row">
+
+		<p>The final thing I'm going to cover is rendering directions on the map, as well as getting the step by step directions onto the right side of the website. To get the directions, you need to use the DirectionsService and DirectionsRenderer objects. Let's make it so that when someone clicks a marker, directions will display from the place searched originally to the marker that is clicked. Let's go back to that <code>for</code> loop again, look for the click event listener, and remove the code that sets the map center to the marker.
+
+		<pre>
+//loop through locations
+for (var i = 0; i < locations.length; i++) {
+	//make a new marker for each location
+	marker = new google.maps.Marker({
+		position: locations[i],
+		map: map
+	});
+	//show directions on click
+	marker.addListener('click', function() {
+		
+	});
+	//add it to the markers array
+	markers.push(marker);
+}
+		</pre>
+
+		Inside that event listener, let's add a bunch of code. First, we need to make a DirectionsService object.
+
+		<pre>var directionsService = new google.maps.DirectionsService();</pre>
+
+		Then, just like with the Map object, Marker object, Geocoder object, we pass in the options that it needs. It will need the origin point coordinates, which will be the first marker created, <code>markers[0].getPosition()</code>, and the destination point coordinates, which we will get using <code>this.getPosition</code>, <code>this</code> being the specific marker clicked. Then travel mode will be set to DRIVING, as oppose to WALKING, BICYCLING, or TRANSIT. These are all required. So lets make a separate variable for this:
+
+		<pre>
+var directionsRequest = {
+	origin: marker[0].getPosition(),
+    destination: this.getPosition(),
+    travelMode: google.maps.DirectionsTravelMode.DRIVING
+};
+		</pre>
+
+		Now we use the <code>DirectionsService.route()</code> to initialize a request to get directions. The next step would be to create a DirectionsRenderer object, pass in the response of the <code>Directions.route()</code> into the directions for the renderer, and then use <code>DirectionsRenderer.setPanel()</code> to show the step by step directions. The rest of the code is commented, so just go ahead and read it. Also notice the first thing I do is remove the directions and the renderer from the map. Read the comment to find out why. You should be able to figure it out.
+
+		<script src="https://gist.github.com/rtaveras824/cf209b8ce1e47c588593976ca9966960.js"></script>
+
+		And this is the final code for everything. So now you pretty much know everything I know so far. If anyone has any suggestions or things to add please let me know. The code in this isn't written very well, but I did try to comment it a lot.
+
+		<script src="https://gist.github.com/rtaveras824/5c94757c843c156adba6ddc14f626ac4.js"></script>
+
+		<div class="footer text-center">
+			<a href="googlemapstutorial_final.html"><button class="btn btn-default">The Final Result</button></a>
+		</div>
+
+	</div>
+</div>
+
+</body>
+</html>

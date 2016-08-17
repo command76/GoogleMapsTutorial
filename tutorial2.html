@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>This is the real tutorial.</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+	<style>
+		body {
+			background: black;
+			color: white;
+		}
+		.gist tbody {
+			/*background: black;*/
+		}
+		hi {
+			background: yellow;
+			border: solid 1px red;
+		}
+		.header {
+			margin-bottom: 10px;
+		}
+		.footer {
+			margin-bottom: 10px;
+			padding: 20px;
+			width: 100%;
+			background: lightblue;
+		}
+
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="row header">
+		<h1>GOOGLE MAPS TUTORIAL</h1>
+		<a href="index.html">Display A Map</a> ||
+		<a href="tutorial2.html">Search Input Autocomplete and Geocoder</a> || 
+		<a href="tutorial3.html">Placing Markers</a> || 
+		<a href="tutorial4.html">Directions</a>
+	</div>
+
+	<div class="row">
+	
+		<p>In order to use the Google Maps Autocomplete search function you need to implement the places library. In your script <code>&lt;script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" type="text/javascript"&gt;&lt;/script&gt;</code> after your api key you need to add <code>&libraries=places</code> to the url. So your script url should look like this <code>&lt;script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY<hi>&libraries=places</hi>&callback=initMap" type="text/javascript"&gt;&lt;/script&gt;</code> Now that we took care of that, adding the Autocomplete search is super easy. At the end of your <code>initMap()</code> function put this line of code: 
+
+		<pre>autoSearch = new google.maps.places.Autocomplete(document.getElementById('search'));</pre>
+
+		Boom. That's it. Now we need to get the information from the search. Pseudocoding this, the user will type something in the search text field, google will autocomplete it, and when they hit the submit button, we need to get the value in the search text field and convert the location to latitude and longitude. For that, we will need the Geocoder. The google Geocoder object allows you to convert locations into geo coordinates, and geo coordinates into locations (that's called reverse geocoding). Add this line of code after your <code>autoSearch</code> variable
+
+		<pre>geocoder = new google.maps.Geocoder();</pre>
+
+		So the geocoder gets initialized when the map gets initialized. When the user hits submit, we send the Geocoder the address, and it gives us coordinates. Put this code right under your <code>initMap()</code> function. Make sure to read the comments.
+
+		<script src="https://gist.github.com/rtaveras824/2af8795e4d241baf2a5e4e2d7b00e8be.js"></script>
+
+		Search a place then hit submit. Check your console for the coordinates to appear. If it works then AWESOME. So now you have latitude and longitude coordinates that you can put in your APIs to search more accurately, unless you have a crap API like Trail API. So this is your final code for this lesson:</p>
+
+		<script src="https://gist.github.com/rtaveras824/059c227c9c57d4337c72183d782b49e0.js"></script>
+
+		<div class="footer text-center">
+			<a href="tutorial3.html"><button class="btn btn-default">Next Is Markers</button></a>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

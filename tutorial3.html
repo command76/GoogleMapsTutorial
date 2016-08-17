@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>This is the real tutorial.</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+	<style>
+		body {
+			background: black;
+			color: white;
+		}
+		.gist tbody {
+			/*background: black;*/
+		}
+		hi {
+			background: yellow;
+			border: solid 1px red;
+		}
+		.header {
+			margin-bottom: 10px;
+		}
+		.footer {
+			margin-bottom: 10px;
+			padding: 20px;
+			width: 100%;
+			background: lightblue;
+		}
+
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="row header">
+		<h1>GOOGLE MAPS TUTORIAL</h1>
+		<a href="index.html">Display A Map</a> ||
+		<a href="tutorial2.html">Search Input Autocomplete and Geocoder</a> || 
+		<a href="tutorial3.html">Placing Markers</a> || 
+		<a href="tutorial4.html">Directions</a>
+	</div>
+
+	<div class="row">
+
+		<p>Placing markers isn't bad. Take a look at this and try to figure it out.
+
+<pre>
+var marker = new google.maps.Marker({
+	position: {'lat': latitude, 'lng': longitude},
+	map: map
+});
+</pre>
+		
+		You have a new Marker object, you set it's position with latitude and longitude, and set which map to place it on. This alone will place a marker on the map, however, wouldn't it be better to position the map view to that marker? To do that, the map object, as well as the markers, have methods. To center the map to a certain latitude and longitude, use the <code>setCenter()</code> method. So you would do <code>map.setCenter({'lat': latitude, 'lng': longitude})</code>. A very useful method that markers have is the <code>getPosition()</code> method, which will give you the coordinates of the marker. So instead you can do <code>map.setCenter(marker.getPosition());</code> and it will center the map on the marker. You can set the marker after you get the geo coordinates from the geocoder, so that's where I choose to put the marker. This is the entire submit event listener with the marker code added after we get the latitude and longitude: 
+
+		<script src="https://gist.github.com/rtaveras824/bdd5ea4aafad2f83220b9705a1a8fb50.js"></script>
+
+		To remove the marker from the map, you would use the setMap() method, like so: <code>marker.setMap(null);</code>. That will completely remove the marker. For better examples, go here: <a href="https://developers.google.com/maps/documentation/javascript/examples/marker-remove">Removing Markers</a>
+
+		Here's an example with multiple markers, and a drop animation: <a href="https://developers.google.com/maps/documentation/javascript/examples/marker-animations-iteration">Drop Animation Markers</a>
+
+		Say you have multiple coordinates and you want a bunch of markers to show on the map. I made a variable called <code>locations</code> with some coordinates just for practice. 
+		
+		<pre>
+//locations that are near each other
+locations = [
+	{'lat': latitude + 0.1, 'lng': longitude + 0.1},
+	{'lat': latitude + 0.2, 'lng': longitude + 0.2},
+	{'lat': latitude + 0.3, 'lng': longitude + 0.3},
+	{'lat': latitude + 0.4, 'lng': longitude + 0.4},
+	{'lat': latitude + 0.5, 'lng': longitude + 0.5}
+];
+		</pre>
+
+		First, make a <code>markers = [];</code> array to hold your markers and make it a global variable. You can put it above the <code>initMap()</code> function. This is going to hold all the markers created. Then lets push the marker that we made from the search into the array. Right below where the marker gets made and the map gets centered to the marker, add this line of code: <code>markers.push(marker);</code>. The marker for the location you searched will be <code>markers[0]</code>. Go ahead and paste the <code>locations</code> variable above this paragraph right below the marker push. Now to place a marker for each location, you would need to loop through it, like so:
+		
+		<pre>
+//loop through locations
+for (var i = 0; i < locations.length; i++) {
+	//make a new marker for each location
+	marker = new google.maps.Marker({
+		position: locations[i],
+		map: map
+	});
+	//add it to the markers array
+	markers.push(marker);
+}
+		</pre>
+
+		After each marker gets made, it gets pushed to the markers array. Let's say you wanted to remove the markers from the map because you are doing a new search, you would just do <code>setMap(null);</code> to each marker:
+		
+		<pre>
+for (var i = 0; i < markers.length; i++) {
+	markers[i].setMap(null);
+}
+		</pre>
+
+		Place this code inside the submit button click event listener, anywhere before the markers get created. Finally, let's add an event listener to the markers so when they are clicked, the map centers to it. This is really simple. In your <code>for</code> loop that creates the markers, right after the marker is made, add this:
+
+		<pre>
+//center map to marker clicked
+marker.addListener('click', function() {
+	//<code>this</code> refers to the marker that is clicked
+	map.setCenter(this.getPosition());
+});
+		</pre>
+
+		Also go ahead and add that to the first marker that was made too, since the first marker was not made inside the <code>for</code> loop. Take a look at the final code to see how it all comes together, it all happens when the submit button is clicked.</p>
+		
+		<script src="https://gist.github.com/rtaveras824/b2ca9cc04da817b2855eb4253e4ee466.js"></script>
+
+	</div>
+	
+	<div class="footer text-center">
+		<a href="tutorial4.html"><button class="btn btn-default">Directions</button></a>
+	</div>
+
+</div>
+
+</body>
+</html>
